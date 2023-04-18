@@ -8,7 +8,11 @@ app.secret_key = b'alkjsdhgkjadshjhjkahfjkhadjk'
 from flask_sqlalchemy import SQLAlchemy
 import os 
 
-sqlite_uri = 'sqlite:///' + os.path.abspath(os.path.curdir) + '/paperclips.db'
+#sqlite_uri = 'sqlite:///' + os.path.abspath(os.path.curdir) + '/paperclips.db'
+if 'DB_PATH' not in os.environ:
+    print('DB_PATH must be set')
+    exit(1)
+sqlite_uri = 'sqlite:///' + os.environ['DB_PATH'] + '/paperclips.db'
 app.config['SQLALCHEMY_DATABASE_URI'] = sqlite_uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
